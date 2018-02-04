@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Layout, Icon, message } from 'antd';
+import { Layout, Icon, message, Modal } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
 import { Route, Redirect, Switch, routerRedux } from 'dva/router';
@@ -16,6 +16,7 @@ import Authorized from '../utils/Authorized';
 import { getMenuData } from '../common/menu';
 import logo from '../assets/logo.svg';
 
+const confirm = Modal.confirm;
 const { Content, Header, Footer } = Layout;
 const { AuthorizedRoute } = Authorized;
 
@@ -121,9 +122,18 @@ class BasicLayout extends React.PureComponent {
   }
 
   handleLogOutClick = () => {
-    this.props.dispatch({
-      type: 'login/logout',
+    const _self = this;
+    confirm({
+      title: '退出?',
+      content: '您确认要退出系统吗?',
+      onOk() {
+        _self.props.dispatch({
+          type: 'login/logout',
+        });
+      },
+      onCancel() {},
     });
+    
   }
  
   render() {

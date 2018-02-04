@@ -369,7 +369,6 @@ export default class TableList extends PureComponent {
       handleAdd: this.handleAdd,
       handleModalVisible: this.handleModalVisible,
     };
-
     return (
       <PageHeaderLayout title="查询表格">
         <Card bordered={false}>
